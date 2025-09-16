@@ -1,0 +1,43 @@
+version: '3.4'
+ 
+services:
+  springboot-service:
+    image: 
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-service:3306/hrms
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mysql-service
+    networks:
+      - mynetwork
+   
+  frontend:
+    image: 
+    ports:
+      - "4200:80"
+    depends_on:
+      - mysql-service
+    networks:
+      - mynetwork
+ 
+  mysql-service:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: "root"
+      MYSQL_DATABASE: "hrms"
+      MYSQL_PASSWORD: "root"
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+    networks:
+      - mynetwork
+    
+networks:
+  mynetwork:
+
+volumes:
+  mysql-data:
