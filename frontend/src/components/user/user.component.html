@@ -1,0 +1,53 @@
+<div class="form-container">
+    <h2>User Authentication Form</h2>
+    <form id="userForm">
+        <div class="form-group">
+            <label for="userId">User ID (UUID)</label>
+            <input type="text" id="userId" name="userId" placeholder="Auto-generated or enter UUID manually" />
+        </div>
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" required />
+        </div>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required />
+        </div>
+        <div class="form-group">
+            <label for="password">Password (Hashed)</label>
+            <input type="password" id="password" name="password" placeholder="Enter password" required />
+        </div>
+        <div class="form-group">
+            <label for="role">Role</label>
+            <select id="role" name="role" required>
+                <option value="">-- Select Role --</option>
+                <option value="ADMIN">ADMIN</option>
+                <option value="HR">HR</option>
+                <option value="MANAGER">MANAGER</option>
+                <option value="EMPLOYEE">EMPLOYEE</option>
+                <option value="FINANCE">FINANCE</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="status">Status</label>
+            <select id="status" name="status" required>
+                <option value="">-- Select Status --</option>
+                <option value="Active">Active</option>
+                <option value="Inactive">Inactive</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="lastLogin">Last Login</label>
+            <input type="datetime-local" id="lastLogin" name="lastLogin" />
+        </div>
+        <div class="form-group">
+            <label for="createdAt">Created At</label>
+            <input type="datetime-local" id="createdAt" name="createdAt" />
+        </div>
+        <div class="form-group">
+            <label for="updatedAt">Updated At</label>
+            <input type="datetime-local" id="updatedAt" name="updatedAt" />
+        </div>
+        <button type="submit">Submit</button>
+    </form>
+</div>

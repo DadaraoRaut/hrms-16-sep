@@ -1,0 +1,90 @@
+<!-- Back Button -->
+<div class="top-button-wrapper">
+  <button class="action-button" (click)="goBack()">← Back</button>
+</div>
+
+<div class="form-container">
+  <h2>Employee Document Upload</h2>
+
+  <form [formGroup]="documentForm" (ngSubmit)="onSubmit()">
+    <div class="form-sections">
+      <!-- Section 1 -->
+      <div class="form-section">
+        <h3>Document Information</h3>
+
+        <div class="form-group">
+          <label for="id">Document ID</label>
+          <input type="text" id="id" formControlName="id" placeholder="Enter Document ID" />
+          <div class="error" *ngIf="documentForm.get('id')?.touched && documentForm.get('id')?.invalid">
+            Document ID is required.
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="employeeId">Employee ID</label>
+          <input type="text" id="employeeId" formControlName="employeeId" placeholder="Enter Employee ID" />
+          <div class="error" *ngIf="documentForm.get('employeeId')?.touched && documentForm.get('employeeId')?.invalid">
+            Employee ID is required.
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="type">Document Type</label>
+          <select id="type" formControlName="type">
+            <option value="">-- Select Type --</option>
+            <option>Offer Letter</option>
+            <option>ID</option>
+            <option>Resume</option>
+            <option>Proofs</option>
+          </select>
+          <div class="error" *ngIf="documentForm.get('type')?.touched && documentForm.get('type')?.invalid">
+            Please select a document type.
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 2 -->
+      <div class="form-section">
+        <h3>Upload Details</h3>
+
+        <div class="form-group">
+          <label for="expiryDate">Expiry Date (Optional)</label>
+          <input type="date" id="expiryDate" formControlName="expiryDate" />
+        </div>
+
+        <div class="form-group">
+          <label for="url">Document URL (Optional)</label>
+          <input type="url" id="url" formControlName="url" placeholder="https://example.com/document.pdf" />
+          <div class="error" *ngIf="documentForm.get('url')?.touched && documentForm.get('url')?.invalid">
+            Please enter a valid URL.
+          </div>
+        </div>
+
+        <!-- File Picker -->
+        <div class="form-group">
+          <label for="fileUpload">Or Upload File</label>
+          <input type="file" id="fileUpload" (change)="onFileSelected($event)" accept=".pdf,.doc,.docx,.jpg,.png" />
+          <small class="hint">Allowed: PDF, DOC, DOCX, JPG, PNG</small>
+        </div>
+
+        <!-- File Preview -->
+        <div *ngIf="selectedFileName" class="file-preview">
+          <strong>Selected File:</strong> {{ selectedFileName }}
+        </div>
+
+        <div class="form-group">
+          <label for="uploadedAt">Uploaded At</label>
+          <input type="datetime-local" id="uploadedAt" formControlName="uploadedAt" />
+          <div class="error" *ngIf="documentForm.get('uploadedAt')?.touched && documentForm.get('uploadedAt')?.invalid">
+            Uploaded date & time is required.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button type="submit" [disabled]="documentForm.invalid"
+      style="background-color: #3182ce; color: white; padding: 12px 25px; border: none; border-radius: 4px; font-size: 16px; font-weight: 600; cursor: pointer;">
+      Upload Document
+    </button>
+  </form>
+</div>

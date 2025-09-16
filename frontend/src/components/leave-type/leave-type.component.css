@@ -1,0 +1,72 @@
+.form-container {
+  max-width: 900px;
+  margin: auto;
+  padding: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+}
+
+/* Section layout */
+.form-sections {
+  display: flex;
+  gap: 2rem;
+}
+
+/* Each section grows evenly */
+.form-section {
+  flex: 1;
+}
+
+/* Form group spacing */
+.form-group {
+  margin-bottom: 1rem;
+}
+
+/* Checkbox label and input inline */
+.checkbox-group {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* =================== NEW ENHANCEMENTS =================== */
+
+/* Top-right × button */
+.top-button-wrapper {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 1rem;
+}
+
+/* Centered bottom button */
+.bottom-button-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 1.5rem;
+}
+
+/* Reusable styled button */
+.action-button {
+  padding: 10px 16px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.action-button:hover {
+  background-color: #0056b3;
+}
+
+/* Optional cancel button */
+.action-button.cancel {
+  background-color: #6c757d;
+}
+
+.action-button.cancel:hover {
+  background-color: #5a6268;
+}

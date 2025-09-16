@@ -1,0 +1,78 @@
+<div class="form-container">
+  <h2>Training Details</h2>
+  <form>
+      <div class="form-sections">
+          <div class="form-section">
+              <div class="form-group">
+                  <label for="id">Training ID</label>
+                  <input type="text" id="id" name="id" />
+              </div>
+
+              <div class="form-group">
+                  <label for="title">Title</label>
+                  <input type="text" id="title" name="title" placeholder="Training title" />
+              </div>
+
+              <div class="form-group">
+                  <label for="description">Description</label>
+                  <textarea id="description" name="description" rows="4" placeholder="Training description..."></textarea>
+              </div>
+
+              <div class="form-group">
+                  <label for="completionDeadline">Completion Deadline</label>
+                  <input type="date" id="completionDeadline" name="completionDeadline" />
+              </div>
+          </div>
+
+          <div class="form-section">
+              <div class="form-group">
+                  <label for="mandatoryFor">Mandatory For (Select Roles)</label>
+                  <select id="mandatoryFor" name="mandatoryFor" multiple size="4">
+                      <option>ADMIN</option>
+                      <option>HR</option>
+                      <option>MANAGER</option>
+                      <option>EMPLOYEE</option>
+                      <option>FINANCE</option>
+                  </select>
+              </div>
+
+              <div class="form-group">
+                  <label for="assignedTo">Assigned To (Select Employees)</label>
+                  <select id="assignedTo" name="assignedTo" multiple size="5">
+                      <option>Employee 1</option>
+                      <option>Employee 2</option>
+                      <option>Employee 3</option>
+                      <option>Employee 4</option>
+                      <option>Employee 5</option>
+                  </select>
+              </div>
+
+              <fieldset class="tracking-group">
+                  <legend>Tracking</legend>
+
+                  <div class="form-group">
+                      <label for="startDate">Start Date</label>
+                      <input type="date" id="startDate" name="startDate" />
+                  </div>
+
+                  <div class="form-group">
+                      <label for="completionDate">Completion Date</label>
+                      <input type="date" id="completionDate" name="completionDate" />
+                  </div>
+
+                  <div class="form-group">
+                      <label for="score">Score</label>
+                      <input type="number" id="score" name="score" min="0" max="100" placeholder="Percentage" />
+                  </div>
+
+                  <div class="form-group">
+                      <label for="feedback">Feedback</label>
+                      <textarea id="feedback" name="feedback" rows="3" placeholder="Feedback from employee/manager"></textarea>
+                  </div>
+              </fieldset>
+          </div>
+      </div>
+
+      <button type="submit">Save Training</button>
+  </form>
+</div>

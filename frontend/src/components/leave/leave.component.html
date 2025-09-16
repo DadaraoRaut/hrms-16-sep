@@ -1,0 +1,229 @@
+<!-- Back Button -->
+<div class="d-flex justify-content-start mb-3">
+  <button class="btn btn-outline-secondary" (click)="goBack()">
+    <i class="fas fa-arrow-left me-1"></i> ← Back
+  </button>
+</div>
+<div class="p-grid p-fluid">
+  <div class="p-col-12">
+    <div class="card">
+      <h2>Leave Management</h2>
+
+      <p-toast position="top-right"></p-toast>
+
+      <p-tabView>
+        <!-- Leave Balance Tab -->
+        <p-tabPanel header="My Leave Balance">
+          <p-table [value]="leaveBalance" [loading]="loading">
+            <ng-template pTemplate="header">
+              <tr>
+                <th>Leave Type</th>
+                <th>Total Days</th>
+                <th>Used Days</th>
+                <th>Remaining Days</th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-balance>
+              <tr>
+                <td>{{ balance.leaveType.name }}</td>
+                <td>{{ balance.maxDaysPerYear }}</td>
+                <td>{{ balance.usedDays }}</td>
+                <td>{{ balance.maxDaysPerYear - balance.usedDays }}</td>
+              </tr>
+            </ng-template>
+          </p-table>
+        </p-tabPanel>
+
+        <!-- Leave Requests Tab -->
+        <p-tabPanel header="My Leave Requests">
+          <button
+            pButton
+            label="Request Leave"
+            icon="pi pi-plus"
+            (click)="displayLeaveDialog = true"
+            class="p-button-primary p-mb-3"
+          ></button>
+
+          <p-table [value]="leaveRequests" [loading]="loading">
+            <ng-template pTemplate="header">
+              <tr>
+                <th>Leave Type</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Days</th>
+                <th>Reason</th>
+                <th>Status</th>
+                <th *ngIf="userRole === 'MANAGER'">Actions</th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-request>
+              <tr>
+                <td>{{ request.leaveType.name }}</td>
+                <td>{{ request.startDate | date }}</td>
+                <td>{{ request.endDate | date }}</td>
+                <td>{{ request.days }}</td>
+                <td>{{ request.reason }}</td>
+                <td>
+                  <span [class]="'status-badge status-' + request.status.toLowerCase()">
+                    {{ request.status }}
+                  </span>
+                </td>
+                <td *ngIf="userRole === 'MANAGER'">
+                  <button
+                    *ngIf="request.status === 'PENDING'"
+                    pButton
+                    icon="pi pi-check"
+                    class="p-button-rounded p-button-success p-mr-2"
+                    (click)="approveRejectLeave(request.leaveRequestId, 'APPROVED')"
+                  ></button>
+                  <button
+                    *ngIf="request.status === 'PENDING'"
+                    pButton
+                    icon="pi pi-times"
+                    class="p-button-rounded p-button-danger"
+                    (click)="approveRejectLeave(request.leaveRequestId, 'REJECTED')"
+                  ></button>
+                </td>
+              </tr>
+            </ng-template>
+          </p-table>
+        </p-tabPanel>
+
+        <!-- Optional Holidays Tab -->
+        <p-tabPanel header="Optional Holidays">
+          <div class="p-mb-4">
+            <h4>Available Optional Holidays</h4>
+            <p-table
+              [value]="optionalHolidays"
+              selectionMode="multiple"
+              [(selection)]="selectedHolidays"
+              dataKey="optionalHolidayId"
+            >
+              <ng-template pTemplate="header">
+                <tr>
+                  <th style="width: 3rem"></th>
+                  <th>Name</th>
+                  <th>Date</th>
+                  <th>Type</th>
+                  <th>Description</th>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-holiday>
+                <tr>
+                  <td>
+                    <p-tableCheckbox [value]="holiday"></p-tableCheckbox>
+                  </td>
+                  <td>{{ holiday.name }}</td>
+                  <td>{{ holiday.date | date }}</td>
+                  <td>{{ holiday.optionalHolidayType }}</td>
+                  <td>{{ holiday.description }}</td>
+                </tr>
+              </ng-template>
+            </p-table>
+
+            <button
+              pButton
+              label="Request Selected Holidays"
+              icon="pi pi-send"
+              (click)="selectOptionalHolidays()"
+              class="p-button-primary p-mt-3"
+              [disabled]="selectedHolidays.length === 0 || loading"
+            ></button>
+          </div>
+        </p-tabPanel>
+      </p-tabView>
+    </div>
+  </div>
+</div>
+
+<!-- Leave Request Dialog -->
+<p-dialog
+  [(visible)]="displayLeaveDialog"
+  header="Request Leave"
+  [modal]="true"
+  [style]="{ width: '500px' }"
+  [draggable]="false"
+  [resizable]="false"
+>
+  <form class="p-fluid">
+    <div class="p-field">
+      <label for="leaveType">Leave Type</label>
+      <p-dropdown
+        id="leaveType"
+        [options]="leaveTypes"
+        [(ngModel)]="leaveRequest.leaveType"
+        name="leaveType"
+        optionLabel="name"
+        placeholder="Select Leave Type"
+      ></p-dropdown>
+    </div>
+
+    <div class="p-grid">
+      <div class="p-field p-col-6">
+        <label for="startDate">Start Date</label>
+        <p-calendar
+          id="startDate"
+          [(ngModel)]="leaveRequest.startDate"
+          name="startDate"
+          [showIcon]="true"
+          dateFormat="yy-mm-dd"
+        ></p-calendar>
+      </div>
+
+      <div class="p-field p-col-6">
+        <label for="endDate">End Date</label>
+        <p-calendar
+          id="endDate"
+          [(ngModel)]="leaveRequest.endDate"
+          name="endDate"
+          [showIcon]="true"
+          dateFormat="yy-mm-dd"
+        ></p-calendar>
+      </div>
+    </div>
+
+    <div class="p-field">
+      <label for="noOfHalfDays">Number of Half Days</label>
+      <p-inputNumber
+        id="noOfHalfDays"
+        [(ngModel)]="leaveRequest.noOfHalfDays"
+        name="noOfHalfDays"
+        [min]="0"
+        [max]="2"
+        mode="decimal"
+        [showButtons]="true"
+      ></p-inputNumber>
+      <small>Set to 1 for 1.5 days leave, 2 for 2.5 days leave, etc.</small>
+    </div>
+
+    <div class="p-field">
+      <label for="reason">Reason</label>
+      <textarea
+        id="reason"
+        rows="3"
+        pInputTextarea
+        [(ngModel)]="leaveRequest.reason"
+        name="reason"
+      ></textarea>
+    </div>
+  </form>
+
+  <ng-template pTemplate="footer">
+    <button
+      pButton
+      label="Cancel"
+      icon="pi pi-times"
+      (click)="displayLeaveDialog = false"
+      class="p-button-text"
+    ></button>
+
+    <button
+      pButton
+      label="Submit"
+      icon="pi pi-check"
+      (click)="submitLeaveRequest()"
+      class="p-button-primary"
+      [disabled]="!leaveRequest.leaveType || !leaveRequest.startDate || !leaveRequest.endDate || loading"
+    ></button>
+  </ng-template>
+</p-dialog>

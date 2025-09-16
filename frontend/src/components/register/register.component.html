@@ -1,0 +1,102 @@
+<div style="display: flex;">
+  <app-sidebar></app-sidebar>
+  <div style="flex: 1; padding: 20px;">
+
+    <p-toast></p-toast>
+
+    <!-- Back Button -->
+    <div class="button-row mb-3">
+      <button class="action-button btn btn-secondary" (click)="goBack()" title="Go Back">
+        ← Back
+      </button>
+    </div>
+
+    <h2>Register User</h2>
+
+    <form #registerForm="ngForm" (ngSubmit)="onSubmit()" *ngIf="!isLoading" novalidate>
+
+      <!-- Username -->
+      <div class="mb-3">
+        <label>Username:</label>
+        <input
+          type="text"
+          [(ngModel)]="user.username"
+          name="username"
+          required
+          minlength="5"
+          maxlength="20"
+          #username="ngModel"
+          placeholder="Enter username (5–20 characters)"
+          class="form-control"
+          [ngClass]="{ 'is-invalid': username.invalid && username.touched }"
+          (keypress)="allowOnlyLowerAlphaNumeric($event)"
+          (input)="sanitizeUsername()" />
+
+        <div class="invalid-feedback" *ngIf="username.invalid && username.touched">
+          <small *ngIf="username.errors?.['required']" style="color:red;">Username is required.</small>
+          <small *ngIf="usernamePatternInvalid" style="color:red;">
+            Only lowercase letters and numbers are allowed.
+          </small>
+          <small *ngIf="username.errors?.['minlength']" style="color:red;">Minimum 5 characters required.</small>
+          <small *ngIf="username.errors?.['maxlength']" style="color:red;">Maximum 20 characters allowed.</small>
+        </div>
+      </div>
+
+      <!-- Email -->
+      <div class="mb-3">
+        <label>Email:</label>
+        <input
+          type="email"
+          [(ngModel)]="user.email"
+          name="email"
+          required
+          email
+          #email="ngModel"
+          placeholder="Enter valid email address"
+          class="form-control"
+          [ngClass]="{ 'is-invalid': email.invalid && email.touched }"
+          (keypress)="blockUppercaseEmail($event)"
+          (input)="sanitizeEmail()" />
+
+        <div class="invalid-feedback" *ngIf="email.invalid && email.touched">
+          <small *ngIf="email.errors?.['required']" style="color:red;">Email is required.</small>
+          <small *ngIf="email.errors?.['email']" style="color:red;">Enter a valid email.</small>
+          <small *ngIf="emailPatternInvalid" style="color:red;">
+            Email must be in lowercase only.
+          </small>
+        </div>
+      </div>
+
+      <!-- Role -->
+      <div class="mb-3">
+        <label>Role:</label>
+        <select
+          [(ngModel)]="user.role"
+          name="role"
+          required
+          #role="ngModel"
+          class="form-select"
+          [ngClass]="{ 'is-invalid': role.invalid && role.touched }">
+          <option value="">Select Role</option>
+          <option *ngFor="let r of roles" [value]="r">{{ r }}</option>
+        </select>
+        <div class="invalid-feedback" *ngIf="role.invalid && role.touched">
+          <small style="color:red;">Role is required.</small>
+        </div>
+      </div>
+
+      <!-- Submit Button -->
+      <button type="submit" class="btn btn-primary" [disabled]="registerForm.invalid">
+        Register
+      </button>
+
+      <!-- Error Message -->
+      <div *ngIf="errorMessage" style="color: red;" class="mt-2">
+        {{ errorMessage }}
+      </div>
+    </form>
+
+    <!-- Loading Text -->
+    <div *ngIf="isLoading">Registering user...</div>
+  </div>
+</div>

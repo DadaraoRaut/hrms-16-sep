@@ -1,0 +1,46 @@
+<div class="card shadow mb-4">
+  <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+    <h6 class="m-0 font-weight-bold text-primary">Pending Approvals</h6>
+    <div class="dropdown no-arrow">
+      <a class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+        <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+      </a>
+      <ul class="dropdown-menu dropdown-menu-end shadow">
+        <li><a class="dropdown-item" href="#">View All</a></li>
+        <li><a class="dropdown-item" href="#">Settings</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="table-responsive">
+      <p-table [value]="approvals" [responsive]="true">
+        <ng-template pTemplate="header">
+          <tr>
+            <th>Type</th>
+            <th>Employee</th>
+            <th>Details</th>
+            <th>Date</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-approval let-index="rowIndex">
+          <tr>
+            <td><span class="badge {{approval.typeClass}}">{{approval.type}}</span></td>
+            <td>{{approval.employee}}</td>
+            <td>{{approval.details}}</td>
+            <td>{{approval.date}}</td>
+            <td><span class="badge {{approval.statusClass}}">{{approval.status}}</span></td>
+            <td>
+              <button *ngIf="approval.type !== 'POSH'" pButton pRipple type="button" icon="pi pi-check" class="p-button-success p-button-sm" (click)="approveRequest(index)"></button>
+              <button *ngIf="approval.type !== 'POSH'" pButton pRipple type="button" icon="pi pi-times" class="p-button-danger p-button-sm ms-1" (click)="rejectRequest(index)"></button>
+              <button *ngIf="approval.type === 'POSH'" pButton pRipple type="button" icon="pi pi-eye" class="p-button-primary p-button-sm" (click)="approveRequest(index)"></button>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
+</div>
+
+<p-toast></p-toast>

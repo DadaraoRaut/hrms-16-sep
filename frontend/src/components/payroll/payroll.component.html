@@ -1,0 +1,84 @@
+<!-- Back Button -->
+<div class="top-button-wrapper">
+  <button class="action-button" (click)="goBack()">← Back</button>
+</div>
+
+<form [formGroup]="form">
+  <!-- Employee Selector -->
+  <div class="form-group" *ngIf="isHrOrAdmin">
+    <label>Select Employee:</label>
+    <select class="form-control" formControlName="employeeId">
+      <option value="" disabled>Select Employee</option>
+      <option *ngFor="let emp of allEmployees" [value]="emp.empId">
+        {{ emp.firstName }} {{ emp.lastName }} ({{ emp.employeeCode }})
+      </option>
+    </select>
+    <div *ngIf="form.controls['employeeId'].touched && form.controls['employeeId'].invalid" class="text-danger mt-1">
+      Employee selection is required.
+    </div>
+  </div>
+
+  <!-- For normal employees -->
+  <div class="form-group" *ngIf="!isHrOrAdmin">
+    <label>Employee:</label>
+<input class="form-control" [value]="currentEmployeeName" disabled />
+  </div>
+
+  <div class="row mt-2">
+    <!-- Month Selector -->
+    <div class="col-md-6">
+      <label>Month:</label>
+      <select class="form-control" formControlName="month">
+        <option value="" disabled>Select Month</option>
+        <option *ngFor="let m of months" [value]="m.value">{{ m.name }}</option>
+      </select>
+      <div *ngIf="form.controls['month'].touched && form.controls['month'].invalid" class="text-danger mt-1">
+        Month is required.
+      </div>
+    </div>
+    <!-- Year Selector -->
+    <div class="col-md-6">
+      <label>Year:</label>
+      <select class="form-control" formControlName="year">
+        <option value="" disabled>Select Year</option>
+        <option *ngFor="let y of years" [value]="y">{{ y }}</option>
+      </select>
+      <div *ngIf="form.controls['year'].touched && form.controls['year'].invalid" class="text-danger mt-1">
+        Year is required.
+      </div>
+    </div>
+  </div>
+
+  <!-- Action Buttons -->
+  <div class="mt-3">
+    <button *ngIf="isHrOrAdmin" (click)="generate()" type="button" class="btn btn-primary" [disabled]="form.invalid">
+      Generate Payroll </button>
+    <button (click)="viewPayroll()" type="button" class="btn btn-secondary mx-2"
+      [disabled]="form.invalid|| !isFormReady"> View Payroll </button>
+    <button (click)="downloadPayslip()" type="button" class="btn btn-success" [disabled]="form.invalid || !isFormReady">
+      Download Payslip </button>
+  </div>
+</form>
+
+<!-- Error Message -->
+<div class="mt-3 text-danger" *ngIf="errorMessage">
+  {{ errorMessage }}
+</div>
+
+<!-- Payroll Details after clicking View Payroll -->
+<div *ngIf="payroll" class="mt-4 card p-3 shadow">
+  <h4 class="mb-3 text-primary fw-bold">Payroll Details:</h4>
+  <ul class="list-group">
+    <li class="list-group-item"><strong>Employee ID:</strong> {{ payroll.employee?.empId }}</li>
+    <li class="list-group-item"><strong>Month:</strong> {{ payroll.month }}</li>
+    <li class="list-group-item"><strong>Year:</strong> {{ payroll.year }}</li>
+    <li class="list-group-item"><strong>Net Salary:</strong> ₹{{ payroll.netSalary }}</li>
+    <li class="list-group-item"><strong>Total Earnings:</strong> ₹{{ payroll.totalEarnings }}</li>
+    <li class="list-group-item"><strong>Total Deductions:</strong> ₹{{ payroll.totalDeductions }}</li>
+    <li class="list-group-item"><strong>Payment Status:</strong> {{ payroll.paymentStatus }}</li>
+    <li class="list-group-item"><strong>Present Days:</strong> {{ payroll.presentDays }}</li>
+    <li class="list-group-item"><strong>Paid Leave Days:</strong> {{ payroll.paidLeaveDays }}</li>
+    <li class="list-group-item"><strong>Working Days:</strong> {{ payroll.workingDays }}</li>
+    <li class="list-group-item"><strong>Payable Days:</strong> {{ payroll.payableDays }}</li>
+  </ul>
+</div>

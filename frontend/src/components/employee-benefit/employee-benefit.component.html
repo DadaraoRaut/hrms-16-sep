@@ -1,0 +1,63 @@
+<!-- <div class="card p-4">
+  <h3>Assign / Update Employee Benefit</h3>
+  <form [formGroup]="benefitForm" (ngSubmit)="assignBenefit()">
+    <div class="grid grid-cols-2 gap-4">
+      <select class="form-control" formControlName="empId" (change)="fetchBenefitsForEmployee($event.target.value)">
+        <option value="" disabled>Select Employee</option>
+        <option *ngFor="let emp of employees" [value]="emp.empId">
+          {{ emp.firstName }} {{ emp.lastName }}
+        </option>
+      </select>
+
+      <select class="form-control" formControlName="benefitId">
+        <option value="" disabled>Select Benefit</option>
+        <option *ngFor="let b of benefits" [value]="b['benefitId']">{{ b.name }}</option>
+      </select>
+
+      <input type="text" formControlName="type" placeholder="Benefit Type" class="form-control" />
+      <input type="number" formControlName="amount" placeholder="Amount" class="form-control" />
+      <input type="date" formControlName="effectiveFrom" class="form-control" />
+      <input type="date" formControlName="effectiveTo" class="form-control" />
+      <select formControlName="status" class="form-control">
+        <option value="ACTIVE">Active</option>
+        <option value="INACTIVE">Inactive</option>
+      </select>
+      <textarea formControlName="notes" placeholder="Notes" class="form-control"></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary mt-3">
+      {{ editMode ? 'Update Benefit' : 'Assign Benefit' }}
+    </button>
+  </form>
+</div>
+
+<div class="card mt-4 p-4">
+  <h4>Assigned Benefits</h4>
+  <table class="table table-bordered mt-3">
+    <thead>
+      <tr>
+        <th>Benefit</th>
+        <th>Amount</th>
+        <th>From</th>
+        <th>To</th>
+        <th>Status</th>
+        <th>Notes</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let ab of assignedBenefits">
+        <td>{{ ab.benefit.name }}</td>
+        <td>{{ ab.amount }}</td>
+        <td>{{ ab.effectiveFrom | date: 'yyyy-MM-dd' }}</td>
+        <td>{{ ab.effectiveTo | date: 'yyyy-MM-dd' }}</td>
+        <td>{{ ab.status }}</td>
+        <td>{{ ab.notes }}</td>
+        <td>
+          <button class="btn btn-sm btn-warning" (click)="editBenefit(ab)">Edit</button>
+          <button class="btn btn-sm btn-secondary" (click)="softDeleteBenefit(ab.id)">Soft Delete</button>
+          <button class="btn btn-sm btn-danger" (click)="hardDeleteBenefit(ab.id)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div> -->

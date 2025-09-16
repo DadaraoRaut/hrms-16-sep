@@ -1,0 +1,95 @@
+<p-toast></p-toast>
+<p-confirmDialog></p-confirmDialog>
+
+<!-- Back Button -->
+<div class="top-button-wrapper">
+  <button class="action-button" (click)="goBack()">← Back</button>
+</div>
+
+<div class="card p-4 shadow">
+  <h4 class="mb-3 text-primary fw-bold">Salary Structure Management</h4>
+
+  <form [formGroup]="salaryForm" (ngSubmit)="onSubmit()">
+
+    <!-- Select Employee -->
+    <div class="mb-3">
+      <label for="employee" class="form-label">Select Employee</label>
+      <select class="form-select" formControlName="employeeId">
+        <option value="" disabled>Select employee</option>
+        <option *ngFor="let emp of employees" [value]="emp.empId">
+          {{ emp.firstName }} {{ emp.lastName }} ({{ emp.email }})
+        </option>
+      </select>
+      <div *ngIf="salaryForm.get('employeeId')?.touched && salaryForm.get('employeeId')?.invalid" class="text-danger">
+        Employee selection is required.
+      </div>
+    </div>
+
+    <!-- Fetch by Employee ID Button -->
+    <div class="form-group mb-3">
+      <button type="button" class="btn btn-primary w-100" (click)="fetchSalaryStructureByEmpId()">
+        Fetch By Employee ID
+      </button>
+    </div>
+
+    <!-- Salary Fields -->
+    <div class="row g-3 mt-1">
+      <div class="col-md-4" *ngFor="let field of salaryFields">
+        <label>{{ field.label }}</label>
+        <input
+          type="number"
+          class="form-control"
+          formControlName="{{ field.name }}"
+          [placeholder]="field.placeholder"
+          [min]="0"
+        />
+        <div *ngIf="salaryForm.get(field.name)?.touched && salaryForm.get(field.name)?.invalid" class="text-danger">
+          <div *ngIf="salaryForm.get(field.name)?.errors?.['required']">{{ field.label }} is required.</div>
+          <div *ngIf="salaryForm.get(field.name)?.errors?.['min']">{{ field.label }} must be a positive number.</div>
+        </div>
+      </div>
+
+      <!-- Effective From -->
+      <div class="col-md-4">
+        <label>Effective From</label>
+        <input
+          type="date"
+          class="form-control"
+          formControlName="effectiveFrom"
+          placeholder="YYYY-MM-DD"
+          (keydown)="restrictYearInput($event)"
+          [attr.max]="maxDate"
+        />
+        <div *ngIf="salaryForm.get('effectiveFrom')?.touched && salaryForm.get('effectiveFrom')?.invalid" class="text-danger">
+          Effective From date is required.
+        </div>
+      </div>
+
+      <!-- Effective To -->
+      <div class="col-md-4">
+        <label>Effective To</label>
+        <input
+          type="date"
+          class="form-control"
+          formControlName="effectiveTo"
+          placeholder="YYYY-MM-DD"
+          (keydown)="restrictYearInput($event)"
+          [attr.max]="maxDate"
+        />
+        <div *ngIf="salaryForm.get('effectiveTo')?.touched && salaryForm.get('effectiveTo')?.invalid" class="text-danger">
+          Effective To date is required.
+        </div>
+      </div>
+    </div>
+
+    <!-- Submit Buttons -->
+    <div class="d-flex gap-3 mt-4">
+      <button class="btn btn-success" type="submit" [disabled]="salaryForm.invalid">
+        {{ updateMode ? 'Update Salary Structure' : 'Assign Salary Structure' }}
+      </button>
+      <button *ngIf="updateMode" class="btn btn-danger" type="button" (click)="confirmDelete()">
+        Delete
+      </button>
+    </div>
+  </form>
+</div>

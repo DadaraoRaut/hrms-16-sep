@@ -1,0 +1,79 @@
+<div class="wrapper">
+      <app-sidebar></app-sidebar>
+
+      <div id="content">
+            <!-- Back Button + Navbar + Admin -->
+            <div class="user-info-header d-flex justify-content-between align-items-center p-3 border-bottom">
+                  <!-- Back Button -->
+                  <!-- <button class="btn btn-outline-secondary" (click)="goBack()">
+<i class=""></i>
+</button> -->
+
+                  <!-- Navbar Component -->
+                  <app-navbar></app-navbar>
+
+                  <!-- Admin Info with Hover Dropdown -->
+                  <div class="profile-dropdown">
+                        <div class="profile-trigger d-flex align-items-center gap-2">
+                              <span class="fw-bold text-capitalize">{{ username }}</span>
+                              <i class="fas fa-user-circle fa-lg text-primary"></i>
+                        </div>
+                        <ul class="dropdown-menu">
+                              <li (click)="logout()">Logout</li>
+                        </ul>
+                  </div>
+            </div>
+
+            <div class="container-fluid">
+                  <div class="row mb-4">
+                        <div class="col-12">
+                              <h2>Admin Dashboard</h2>
+                              <img src="assets\img\Administritative.jpeg" alt="Admin Dashboard"
+                                    class="admin-image img-fluid mb-3" />
+
+                        </div>
+                  </div>
+
+
+
+
+                  <!-- Stats Cards -->
+                  <!-- <app-stats-cards></app-stats-cards> -->
+
+                  <!-- Charts -->
+                  <!-- <div class="row">
+<div class="col-lg-8">
+<app-attendance-chart></app-attendance-chart>
+</div>
+<div class="col-lg-4">
+<app-department-chart></app-department-chart>
+</div>
+</div> -->
+
+                  <!-- Quick Actions and Events -->
+                  <!-- <div class="row">
+<div class="col-lg-6 mb-4">
+<app-quick-actions></app-quick-actions>
+</div>
+<div class="col-lg-6 mb-4">
+<app-upcoming-events></app-upcoming-events>
+</div>
+</div> -->
+
+
+
+                  <!-- Pending Approvals -->
+                  <!-- <div class="row">
+<div class="col-12">
+<app-pending-approvals></app-pending-approvals>
+</div>
+</div>
+</div>
+</div> -->
+
+            </div>
+
+
+
+            <!-- FontAwesome for icons -->
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />

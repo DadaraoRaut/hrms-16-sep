@@ -1,0 +1,75 @@
+<div class="sidebar" [class.collapsed]="isCollapsed">
+  <div class="sidebar-header">
+    <h2>HRMS Portal</h2>
+    <button (click)="toggleSidebar()" class="toggle-btn">
+      <i class="fas fa-bars"></i>
+    </button>
+  </div>
+  
+  <nav class="sidebar-nav">
+    <ul>
+      <li class="active">
+        <a routerLink="/dashboard"><i class="fas fa-tachometer-alt"></i> <span class="nav-text">Dashboard</span></a>
+      </li>
+
+      <li>
+        <a routerLink="/register"><i class="fas fa-user-plus"></i> <span class="nav-text">Register</span></a>
+      </li>
+      
+      <li>
+        <a routerLink="#"><i class="fas fa-users"></i> <span class="nav-text">Employee</span></a>
+        <ul class="sub-menu">
+          <li><a routerLink="/add-employee"><i class="fas fa-user-plus"></i> <span class="nav-text">Add Employee</span></a></li>
+          <li><a routerLink="/employeelist"><i class="fas fa-list"></i> <span class="nav-text">Employee List</span></a></li>
+          <li><a routerLink="/banking"><i class="fas fa-university"></i> <span class="nav-text">Banking</span></a></li>
+        </ul>
+      </li>
+
+      <li>
+        <a routerLink="/department"><i class="fas fa-building"></i> <span class="nav-text">Department</span></a>
+      </li>
+
+      <li>
+        <a routerLink="#"><i class="fas fa-money-bill-wave"></i> <span class="nav-text">Payroll</span></a>
+        <ul class="sub-menu">
+          <li><a routerLink="/salary-structure"><i class="fas fa-wallet"></i> <span class="nav-text">Salary Structure</span></a></li>
+          <li><a routerLink="/payroll"><i class="fas fa-calculator"></i> <span class="nav-text">Payroll Processing</span></a></li>
+        </ul>
+      </li>
+      
+      <!-- Attendance Menu -->
+      <li>
+        <a routerLink="#"><i class="fas fa-calendar-check"></i> 
+          <span class="nav-text">Attendance</span>
+        </a>
+        <ul class="sub-menu">
+          <li>
+            <a routerLink="/attendance"><i class="fas fa-clock"></i><span class="nav-text">Regularization Request</span></a>
+          </li>
+          <!-- <li>
+            <a routerLink="/attendancelist">
+              <i class="fas fa-calendar-day"></i><span class="nav-text">Attendance List</span>
+            </a>
+          </li> -->
+        </ul>
+      </li>
+      <!-- End Attendance Menu -->
+            
+      <li>
+        <a routerLink="#"><i class="fas fa-calendar-times"></i> <span class="nav-text">Leave</span></a>
+        <ul class="sub-menu">
+          <li><a routerLink="/leavetype"><i class="fas fa-list"></i> <span class="nav-text">Leave Types</span></a></li>
+        </ul>
+      </li>
+      
+      <li>
+        <a routerLink="/benefits"><i class="fas fa-hand-holding-heart"></i> <span class="nav-text">Benefits</span></a>
+        <ul class="sub-menu">
+          <li><a routerLink="/benefit"><i class="fas fa-list"></i> <span class="nav-text">Benefit Types</span></a></li>
+        </ul>
+      </li>
+      
+      <li><a routerLink="/compliance"><i class="fas fa-gavel"></i> <span class="nav-text">Compliance</span></a></li>
+    </ul>
+  </nav>
+</div>

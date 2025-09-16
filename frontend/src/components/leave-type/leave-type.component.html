@@ -1,0 +1,100 @@
+<p-toast></p-toast>
+<p-confirmDialog></p-confirmDialog>
+
+<div class="top-button-wrapper">
+  <button class="action-button" (click)="goBack()">← Back</button>
+</div>
+
+<div class="container mt-4">
+  <div class="card shadow-lg rounded-4 p-4">
+    <h4 class="mb-4 text-primary fw-bold">📝 Leave Type Configuration</h4>
+
+    <form [formGroup]="leaveTypeForm">
+      <div class="row g-4">
+        <!-- Left Column -->
+        <div class="col-md-6">
+          <h5 class="mb-3 text-secondary">Basic Information</h5>
+
+          <div class="mb-3">
+            <label for="leaveTypeId" class="form-label">Leave Type ID <span class="text-muted">(for update/delete)</span></label>
+            <input id="leaveTypeId" formControlName="leaveTypeId" type="text" class="form-control" placeholder="Leave blank to create new"/>
+          </div>
+
+          <div class="mb-3">
+            <label for="leaveTypeName" class="form-label">Leave Type Name</label>
+            <select id="leaveTypeName" formControlName="name" class="form-select">
+              <option value="">-- Select Leave Type --</option>
+              <option *ngFor="let type of leaveTypeNames" [value]="type">{{ type.replace('_', ' ') }}</option>
+            </select>
+          </div>
+
+          <div class="form-check form-switch mb-2">
+            <input class="form-check-input" type="checkbox" formControlName="carryForward" id="carryForward"/>
+            <label class="form-check-label" for="carryForward">Carry Forward</label>
+          </div>
+
+          <div class="form-check form-switch mb-3">
+            <input class="form-check-input" type="checkbox" formControlName="encashable" id="encashable"/>
+            <label class="form-check-label" for="encashable">Encashable</label>
+          </div>
+        </div>
+
+        <!-- Right Column -->
+        <div class="col-md-6">
+          <h5 class="mb-3 text-secondary">Leave Policy</h5>
+
+          <div class="mb-3">
+            <label for="maxDays" class="form-label">Max Days Per Year</label>
+            <input id="maxDays" type="number" class="form-control" formControlName="maxDaysPerYear" placeholder="e.g., 12" min="0" (input)="preventNegative($event)"/>
+          </div>
+
+          <div class="mb-3">
+            <label for="description" class="form-label">Description</label>
+            <textarea id="description" class="form-control" rows="2" formControlName="description" placeholder="Enter description"></textarea>
+          </div>
+
+          <div class="mb-3">
+            <label for="approvalFlow" class="form-label">Approval Flow (comma separated roles)</label>
+            <input id="approvalFlow" type="text" class="form-control" formControlName="approvalFlow" placeholder="e.g., Manager, HR"/>
+          </div>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="d-flex flex-wrap gap-3 mt-4">
+        <button type="button" class="btn btn-primary" (click)="confirmSave()">💾 Save Leave Type</button>
+        <button type="button" class="btn btn-outline-secondary" (click)="fetchById()">🔍 Fetch by ID</button>
+        <button type="button" class="btn btn-outline-danger" (click)="deleteById()">🗑️ Delete by ID</button>
+        <button type="button" class="btn btn-warning" (click)="resetForm()">🧹 Reset Form</button>
+      </div>
+    </form>
+
+    <!-- Live Leave Type List -->
+    <div class="mt-5">
+      <h5 class="text-secondary">Existing Leave Types</h5>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Max Days</th>
+            <th>Carry Forward</th>
+            <th>Encashable</th>
+            <th>Approval Flow</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let lt of leaveTypes">
+            <td>{{ lt.leaveTypeId }}</td>
+            <td>{{ lt.name.replace('_', ' ') }}</td>
+            <td>{{ lt.maxDaysPerYear }}</td>
+            <td>{{ lt.carryForward ? 'Yes' : 'No' }}</td>
+            <td>{{ lt.encashable ? 'Yes' : 'No' }}</td>
+            <td>{{ lt.approvalFlow }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</div>

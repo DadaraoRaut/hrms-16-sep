@@ -1,0 +1,127 @@
+.dashboard-layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+app-dashboard-sidebar {
+  width: 250px;
+  background: #2c3e50; /* adjust to match your dashboard sidebar */
+  min-height: 100vh;
+}
+/* Container */
+.employee-container {
+  flex: 1;
+  padding: 20px;
+  background: #f8fafc;
+}
+
+/* Title */
+.employee-title {
+  font-size: 1.875rem; /* text-3xl */
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  color: #1f2937; /* gray-800 */
+}
+
+/* Table wrapper */
+.table-wrapper {
+  overflow-x: auto;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Table base */
+.employee-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: white;
+  border: 1px solid #e5e7eb; /* gray-200 */
+  border-radius: 0.5rem;
+}
+
+/* Header */
+.employee-table thead tr {
+  background-color: #f1f5f9; /* light gray-blue */
+}
+
+
+.employee-table th {
+  padding: 0.9rem;
+  border: 1px solid #d1d5db; /* gray-300 */
+  font-weight: 700;          /* bold */
+  font-size: 1rem;           /* bigger text */
+  color: #1f2937;            /* dark gray */
+  text-align: center;
+  text-transform: uppercase; /* makes it more readable */
+  letter-spacing: 0.5px;     /* slight spacing */
+}
+
+/* Rows */
+.employee-table td {
+  padding: 0.75rem;
+  border: 1px solid #d1d5db;
+  color: #374151; /* gray-700 */
+}
+
+.employee-table tr:nth-child(even) {
+  background-color: #f9fafb; /* striped */
+}
+
+.employee-table tr:hover {
+  background-color: #f3f4f6; /* hover */
+}
+
+/* Photo */
+.employee-photo {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 9999px; /* fully rounded */
+  object-fit: cover;
+  margin: auto;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  border: 1px solid #d1d5db;
+}
+
+/* N/A fallback */
+.na-text {
+  color: #9ca3af; /* gray-400 */
+  font-style: italic;
+}
+
+/* Status */
+.status-active {
+  font-weight: bold;
+  color: #16a34a; /* green-600 */
+}
+
+.status-inactive {
+  font-weight: bold;
+  color: #dc2626; /* red-600 */
+}
+
+/* No employees message */
+.no-employees {
+  color: #6b7280; /* gray-500 */
+  margin-top: 1.5rem;
+  text-align: center;
+  font-size: 1.125rem; /* text-lg */
+  font-style: italic;
+}
+.back-button {
+  background-color: #2563eb; /* blue */
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-bottom: 15px;
+  transition: background 0.2s ease-in-out;
+}
+
+.back-button:hover {
+  background-color: #1e40af; /* darker blue */
+}
+

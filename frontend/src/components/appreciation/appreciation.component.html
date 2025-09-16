@@ -1,0 +1,60 @@
+<div class="form-container">
+  <h2>Employee Appreciation</h2>
+  <form>
+      <div class="form-sections">
+          <!-- Left Section - Employee Details -->
+          <div class="form-section">
+              <div class="form-section-title">Employee Information</div>
+              
+              <div class="form-group">
+                  <label for="id">Appreciation ID</label>
+                  <input type="text" id="id" name="id" />
+              </div>
+
+              <div class="form-group">
+                  <label for="fromEmployeeId">From Employee ID</label>
+                  <input type="text" id="fromEmployeeId" name="fromEmployeeId" />
+              </div>
+
+              <div class="form-group">
+                  <label for="toEmployeeId">To Employee ID</label>
+                  <input type="text" id="toEmployeeId" name="toEmployeeId" />
+              </div>
+
+              <div class="form-group">
+                  <label for="date">Date</label>
+                  <input type="date" id="date" name="date" />
+              </div>
+          </div>
+
+          <!-- Right Section - Appreciation Details -->
+          <div class="form-section">
+              <div class="form-section-title">Appreciation Details</div>
+              
+              <div class="form-group">
+                  <label for="category">Category</label>
+                  <select id="category" name="category">
+                      <option value="">-- Select Category --</option>
+                      <option>Inclusive Leadership</option>
+                      <option>Team Respect</option>
+                      <option>Innovation</option>
+                      <option>Customer Focus</option>
+                      <option>Collaboration</option>
+                  </select>
+              </div>
+
+              <div class="form-group">
+                  <label for="message">Message</label>
+                  <textarea id="message" name="message" rows="4" placeholder="Write your appreciation message..."></textarea>
+              </div>
+
+              <div class="form-group checkbox-group">
+                  <input type="checkbox" id="isAnonymous" name="isAnonymous" />
+                  <label for="isAnonymous">Send Anonymously</label>
+              </div>
+          </div>
+      </div>
+
+      <button type="submit">Send Appreciation</button>
+  </form>
+</div>

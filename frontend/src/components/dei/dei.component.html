@@ -1,0 +1,69 @@
+<div class="form-container">
+  <h2>Diversity, Equity & Inclusion (DEI) Details</h2>
+  <form>
+      <div class="form-sections">
+          <!-- Left Section - Employee Information -->
+          <div class="form-section">
+              <div class="form-section-title">Employee Information</div>
+              
+              <div class="form-group">
+                  <label for="id">ID</label>
+                  <input type="text" id="id" name="id" />
+              </div>
+
+              <div class="form-group">
+                  <label for="employeeId">Employee ID</label>
+                  <input type="text" id="employeeId" name="employeeId" />
+              </div>
+
+              <div class="form-group">
+                  <label for="genderIdentity">Gender Identity</label>
+                  <select id="genderIdentity" name="genderIdentity">
+                      <option value="">-- Select Gender Identity --</option>
+                      <option>Male</option>
+                      <option>Female</option>
+                      <option>Non-Binary</option>
+                      <option>Prefer not to say</option>
+                      <option>Other</option>
+                  </select>
+              </div>
+          </div>
+
+          <!-- Right Section - DEI Details -->
+          <div class="form-section">
+              <div class="form-section-title">DEI Details</div>
+              
+              <div class="form-group">
+                  <label for="ethnicity">Ethnicity</label>
+                  <input type="text" id="ethnicity" name="ethnicity" placeholder="e.g. Hispanic, Asian, African American" />
+              </div>
+
+              <div class="form-group">
+                  <label for="disabilityStatus">Disability Status</label>
+                  <select id="disabilityStatus" name="disabilityStatus">
+                      <option value="">-- Select Disability Status --</option>
+                      <option>No Disability</option>
+                      <option>Physical Disability</option>
+                      <option>Visual Impairment</option>
+                      <option>Hearing Impairment</option>
+                      <option>Mental Health Condition</option>
+                      <option>Other</option>
+                      <option>Prefer not to say</option>
+                  </select>
+              </div>
+
+              <div class="form-group">
+                  <label for="badgesEarned">Badges Earned</label>
+                  <input type="text" id="badgesEarned" name="badgesEarned" placeholder="e.g. Ally Badge, Inclusive Leader" />
+              </div>
+
+              <div class="form-group checkbox-group">
+                  <input type="checkbox" id="disclosureConsent" name="disclosureConsent" />
+                  <label for="disclosureConsent">I consent to disclose my DEI information</label>
+              </div>
+          </div>
+      </div>
+
+      <button type="submit">Submit DEI Info</button>
+  </form>
+</div>

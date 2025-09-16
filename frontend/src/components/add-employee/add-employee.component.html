@@ -1,0 +1,228 @@
+<div style="display: flex;">
+  <app-sidebar></app-sidebar>
+  <div style="flex: 1;">
+    <p-toast></p-toast>
+    <div class="top-button-wrapper">
+      <button class="action-button" (click)="goBack()">← Back</button>
+    </div>
+    <div class="container mt-4">
+      <h2>Add New Employee</h2>
+
+      <form [formGroup]="employeeForm" (ngSubmit)="submitForm()" enctype="multipart/form-data" novalidate>
+
+        <!-- User & Department -->
+        <div class="row">
+          <div class="col-md-6">
+            <label>User</label>
+            <select class="form-control" formControlName="userId" required>
+              <option value="" disabled>Select User</option>
+              <option *ngFor="let user of allUsers" [value]="user.userID">
+                {{ user.username }} ({{ user.email }})
+              </option>
+            </select>
+            <small *ngIf="employeeForm.get('userId')?.touched && employeeForm.get('userId')?.invalid"
+              class="text-danger">
+              User selection is required
+            </small>
+          </div>
+          <div class="col-md-6">
+            <label>Department</label>
+            <select class="form-control" formControlName="departmentId" required>
+              <option value="" disabled>Select Department</option>
+              <option *ngFor="let dept of departments" [value]="dept.departmentId">{{ dept.name }}
+                ({{dept.departmentCode}})</option>
+            </select>
+            <small *ngIf="employeeForm.get('departmentId')?.touched && employeeForm.get('departmentId')?.invalid"
+              class="text-danger">
+              Department is required
+            </small>
+          </div>
+        </div>
+
+        <!-- Manager & Employee Code -->
+        <div class="row mt-3">
+          <div class="col-md-6">
+            <label>Manager</label>
+            <select class="form-control" formControlName="managerId">
+              <option [value]="">----Select Manager----</option>
+              <option *ngFor="let mgr of managers" [value]="mgr.empId">
+                {{ mgr.firstName }} {{ mgr.lastName }} ({{ mgr.employeeCode }})
+              </option>
+            </select>
+          </div>
+          <div class="col-md-6">
+            <label>Employee Code</label>
+            <input type="text" placeholder="EMP123" class="form-control" formControlName="employeeCode" required
+              maxlength="10" (keypress)="allowAlphanumeric($event)">
+            <small *ngIf="employeeForm.get('employeeCode')?.touched && employeeForm.get('employeeCode')?.invalid"
+              class="text-danger">
+              Employee code is required (max 10 chars, letters/numbers only)
+            </small>
+          </div>
+        </div>
+
+        <!-- First Name & Last Name -->
+        <div class="row mt-3">
+          <div class="col-md-6">
+            <label>First Name</label>
+            <input type="text" placeholder="John" class="form-control" formControlName="firstName" required
+              maxlength="20" (keypress)="allowLettersOnly($event)">
+            <small *ngIf="employeeForm.get('firstName')?.touched && employeeForm.get('firstName')?.invalid"
+              class="text-danger">
+              First name must be 2–20 letters (A–Z only, no spaces or special characters)
+            </small>
+          </div>
+          <div class="col-md-6">
+            <label>Last Name</label>
+            <input type="text" placeholder="Doe" class="form-control" formControlName="lastName" required maxlength="20"
+              (keypress)="allowLettersOnly($event)">
+            <small *ngIf="employeeForm.get('lastName')?.touched && employeeForm.get('lastName')?.invalid"
+              class="text-danger">
+              Last name must be 2–20 letters (A–Z only, no spaces or special characters)
+            </small>
+          </div>
+        </div>
+
+        <!-- Email & Contact -->
+        <div class="row mt-3">
+          <div class="col-md-6">
+            <label>Email</label>
+            <input type="email" placeholder="example@domain.com" class="form-control" formControlName="email" required>
+            <small *ngIf="employeeForm.get('email')?.touched && employeeForm.get('email')?.invalid" class="text-danger">
+              Please enter a valid email address
+            </small>
+          </div>
+          <div class="col-md-6">
+            <label>Contact Number</label>
+            <input type="text" placeholder="10-digit number" class="form-control" formControlName="contactNumber"
+              required maxlength="10" (keypress)="allowNumbersOnly($event)">
+            <small *ngIf="employeeForm.get('contactNumber')?.touched && employeeForm.get('contactNumber')?.invalid"
+              class="text-danger">
+              Contact number must be exactly 10 digits
+            </small>
+          </div>
+        </div>
+
+        <!-- Emergency Contact & Gender -->
+        <div class="row mt-3">
+          <div class="col-md-6">
+            <label>Emergency Contact</label>
+            <input type="text" placeholder="Emergency contact number" class="form-control"
+              formControlName="emergencyContact" required maxlength="10" (keypress)="allowNumbersOnly($event)">
+            <small
+              *ngIf="employeeForm.get('emergencyContact')?.touched && employeeForm.get('emergencyContact')?.invalid"
+              class="text-danger">
+              Emergency contact must be exactly 10 digits
+            </small>
+          </div>
+          <div class="col-md-6">
+            <label>Gender</label>
+            <select class="form-control" formControlName="gender" required>
+              <option value="">Select Gender</option>
+              <option value="MALE">Male</option>
+              <option value="FEMALE">Female</option>
+              <option value="NON_BINARY">Non-Binary</option>
+            </select>
+            <small *ngIf="employeeForm.get('gender')?.touched && employeeForm.get('gender')?.invalid"
+              class="text-danger">
+              Gender is required
+            </small>
+          </div>
+        </div>
+
+       
+       <!-- DOB & Joining Date -->
+<div class="row mt-3">
+  <div class="col-md-6">
+    <label>Date of Birth</label>
+    <input type="date" [attr.max]="maxDate" (input)="restrictYear($event, 'dob')" formControlName="dob">
+  </div>
+  <div class="col-md-6">
+    <label>Joining Date</label>
+   <input type="date" [attr.max]="maxDate" (input)="restrictYear($event, 'joiningDate')" formControlName="joiningDate">
+  </div>
+
+
+<!-- Probation End -->
+<div class="row mt-3">
+  <div class="col-md-6">
+    <label>Probation End Date</label>
+<input type="date" [attr.max]="maxDate" (input)="restrictYear($event, 'probationEndDate')" formControlName="probationEndDate">
+  </div>
+</div>
+          <div class="col-md-6">
+            <label>Job Type</label>
+            <select class="form-control" formControlName="jobType" required>
+              <option value="FULL_TIME">Full Time</option>
+              <option value="PART_TIME">Part Time</option>
+              <option value="CONTRACT">Contract</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Status & Designation -->
+        <div class="row mt-3">
+          <div class="col-md-6">
+            <label>Status</label>
+            <select class="form-control" formControlName="status" required>
+              <option value="ACTIVE">Active</option>
+              <option value="ON_NOTICE">On Notice</option>
+              <option value="RESIGNED">Resigned</option>
+            </select>
+          </div>
+          <div class="col-md-6">
+            <label>Designation</label>
+            <input type="text" placeholder="Software Engineer" class="form-control" formControlName="designation"
+              required (keypress)="allowAlphanumeric($event)">
+          </div>
+        </div>
+
+        <!-- Education & Experience -->
+        <div class="row mt-3">
+          <div class="col-md-6">
+            <label>Education</label>
+            <input type="text" placeholder="B.Tech, M.Sc, etc." class="form-control" formControlName="education">
+          </div>
+          <div class="col-md-6">
+            <label>Experience</label>
+            <input type="text" placeholder="3 years, Fresher, etc." class="form-control" formControlName="experience">
+          </div>
+        </div>
+
+        <!-- Certifications & Location -->
+        <div class="row mt-3">
+          <div class="col-md-6">
+            <label>Certifications</label>
+            <input type="text" placeholder="AWS, PMP, etc." class="form-control" formControlName="certifications">
+          </div>
+          <div class="col-md-6">
+            <label>Location</label>
+            <input type="text" placeholder="City/Branch Name" class="form-control" formControlName="location" required
+              (keypress)="allowLettersOnly($event)">
+          </div>
+        </div>
+
+        <!-- Exit Reason -->
+        <div class="row mt-3">
+          <div class="col-md-6">
+            <label>Exit Reason</label>
+            <input type="text" placeholder="Reason for exit (if applicable)" class="form-control"
+              formControlName="exitReason">
+          </div>
+        </div>
+
+        <!-- Photo -->
+        <div class="row mt-3">
+          <div class="col-md-12">
+            <label>Upload Photo</label>
+            <input type="file" class="form-control" (change)="onPhotoChange($event)" required>
+          </div>
+        </div>
+
+        <div class="mt-4">
+          <button type="submit" class="btn btn-primary" [disabled]="employeeForm.invalid">Submit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,77 @@
+<div class="p-4">
+  <h2 class="text-xl font-bold mb-4">{{ isEditMode ? 'Edit Project' : 'Create New Project' }}</h2>
+
+  <form [formGroup]="projectForm" (ngSubmit)="submit()" class="grid grid-cols-2 gap-4">
+    <div>
+      <label>Project Name</label>
+      <input type="text" formControlName="projectName" class="p-inputtext w-full" />
+    </div>
+
+    <div>
+      <label>Manager</label>
+      <select formControlName="empId" [formGroup]="projectForm.get('manager')" class="p-dropdown w-full">
+        <option *ngFor="let mgr of managers" [value]="mgr.empId">
+          {{ mgr.firstName }} {{ mgr.lastName }}
+        </option>
+      </select>
+    </div>
+
+    <div class="col-span-2">
+      <label>Description</label>
+      <textarea formControlName="description" rows="3" class="p-inputtextarea w-full"></textarea>
+    </div>
+
+    <div>
+      <label>Start Date</label>
+      <input type="date" formControlName="startDate" class="p-inputtext w-full" />
+    </div>
+
+    <div>
+      <label>End Date</label>
+      <input type="date" formControlName="endDate" class="p-inputtext w-full" />
+    </div>
+
+    <div class="col-span-2">
+      <label>Status</label>
+      <select formControlName="status" class="p-dropdown w-full">
+        <option value="NOT_STARTED">Not Started</option>
+        <option value="IN_PROGRESS">In Progress</option>
+        <option value="COMPLETED">Completed</option>
+        <option value="ON_HOLD">On Hold</option>
+      </select>
+    </div>
+
+    <div class="col-span-2 flex gap-2">
+      <button pButton type="submit" [label]="isEditMode ? 'Update' : 'Create'" class="p-button-success"></button>
+      <button pButton type="button" label="Reset" class="p-button-secondary" (click)="resetForm()"></button>
+    </div>
+  </form>
+
+  <hr class="my-6" />
+
+  <h3 class="text-lg font-semibold mb-2">All Projects</h3>
+  <p-table [value]="projects" [paginator]="true" [rows]="5" responsiveLayout="scroll">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Name</th>
+        <th>Manager</th>
+        <th>Status</th>
+        <th>Start</th>
+        <th>End</th>
+        <th>Action</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-project>
+      <tr>
+        <td>{{ project.projectName }}</td>
+        <td>{{ project.manager?.fullName }}</td>
+        <td>{{ project.status }}</td>
+        <td>{{ project.startDate }}</td>
+        <td>{{ project.endDate }}</td>
+        <td>
+          <button pButton icon="pi pi-pencil" class="p-button-text" (click)="editProject(project)"></button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>

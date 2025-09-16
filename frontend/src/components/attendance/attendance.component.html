@@ -1,0 +1,103 @@
+<!-- Back Button -->
+<div class="top-button-wrapper">
+  <button class="action-button" (click)="goBack()">← Back</button>
+</div>
+<div class="container">
+  <h2>Attendance Management</h2>
+
+  <!-- Clock In Form -->
+  <!-- <form [formGroup]="clockInForm" (ngSubmit)="clockIn()">
+    <label>Working From:
+      <select formControlName="workFrom">
+        <option value="">Select</option>
+        <option value="OFFICE">OFFICE</option>
+        <option value="REMOTE">REMOTE</option>
+      </select>
+    </label>
+    <br /><br />
+
+    <label>Mode:
+      <select formControlName="mode">
+        <option value="">Select</option>
+        <option value="WEB">WEB</option>
+        <option value="MOBILE">MOBILE</option>
+        <option value="BIOMETRIC">BIOMETRIC</option>
+      </select>
+    </label>
+    <br /><br />
+
+    <label>Location:
+      <input type="text" formControlName="location" placeholder="Enter your city" autocomplete="off" />
+    </label>
+    <br /><br />
+
+    <button type="submit" [disabled]="clockInForm.invalid">Clock In</button>
+    <form [formGroup]="clockOutForm" (ngSubmit)="clockOutAttendance()">
+    <button type="submit">Clock Out</button>
+  </form>
+
+  <hr /> -->
+
+  <!-- Clock Out Form-->
+  <!-- <h3>Clock Out</h3>
+  <form [formGroup]="clockOutForm" (ngSubmit)="clockOutAttendance()">
+    <button type="submit">Clock Out</button>
+  </form>
+
+  <hr /> -->
+
+  <!-- Regularize Attendance Form -->
+  <!-- <form [formGroup]="regularizeForm" (ngSubmit)="submitRegularization()">
+    <h3>Regularize Attendance</h3>
+
+    <label>Date:
+      <input type="date" formControlName="date" />
+    </label>
+    <br /><br />
+
+    <label>Reason:
+      <input type="text" formControlName="reason" />
+    </label>
+    <br /><br />
+
+   <button type="submit" [disabled]="regularizeForm.invalid" (click)="submitRegularization()">Request Regularization</button>
+
+  </form> -->
+  <h3>Regularization Requests</h3>
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Employee</th>
+      <th>Date</th>
+      <th>Reason</th>
+      <th>Status</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let request of attendanceRequests">
+      <td>{{ request.attendanceId }}</td>
+      <td>{{ request.employee?.firstName }} {{ request.employee?.lastName }}</td>
+      <td>{{ request.date }}</td>
+      <td>{{ request.regularizationReason }}</td>
+      <td>{{ request.status }}</td>
+      <td>
+        <button
+          class="btn btn-success btn-sm"
+          (click)="approveRegularizationRequest(request.attendanceId)"
+          [disabled]="request.status === 'APPROVED'"
+        >
+          Approve
+        </button>
+        <button class="btn btn-danger btn-sm"
+        (click)="rejectRegularization(request.attendanceId)"
+        >
+         Reject
+      </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<p-toast></p-toast>
+

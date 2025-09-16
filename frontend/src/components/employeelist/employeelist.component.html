@@ -1,0 +1,82 @@
+<div style="display: flex;">
+  <app-sidebar></app-sidebar>
+  <div style="flex: 1; padding: 20px;">
+    <div class="employee-container">
+      <!-- Back Button -->
+      <button class="back-button" (click)="goBack()">← Back</button>
+
+      <h2 class="employee-title">Employee List</h2>
+
+      <!-- Loading -->
+      <div *ngIf="loading" class="text-blue-600 font-semibold text-center">
+        Loading employees...
+      </div>
+
+      <!-- Error -->
+      <div *ngIf="errorMessage" class="text-red-600 font-semibold text-center">
+        {{ errorMessage }}
+      </div>
+
+      <!-- Table -->
+      <div class="table-wrapper">
+        <table *ngIf="!loading && employees.length > 0" class="employee-table">
+          <thead>
+            <tr>
+              <!-- <th>Photo</th> -->
+              <th>Employee Code</th>
+              <th>Name</th>
+              <th>Designation</th>
+              <th>Email</th>
+              <!-- <th>Salary</th> -->
+              <th>Joining Date</th>
+              <!-- <th>Department</th> -->
+              <th>Manager</th>
+              <th>Location</th>
+              <th>Contact</th>
+              <th>Certificate</th>
+
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let emp of employees">
+              <!-- <td class="text-center">
+                <img *ngIf="emp.photo" [src]="'http://localhost:8080/' + emp.photo" alt="Photo" class="employee-photo">
+                <span *ngIf="!emp.photo" class="na-text">N/A</span>
+              </td> -->
+              <td>{{ emp.employeeCode || 'N/A' }}</td>
+              <td class="font-semibold">{{ emp.firstName }} {{ emp.lastName }}</td>
+              <td>{{ emp.designation || 'N/A' }}</td>
+              <td class="text-blue-700">{{ emp.email || 'N/A' }}</td>
+              <td>{{ emp.joiningDate | date:'mediumDate' }}</td>
+              <!-- <td>{{ emp.department?.name || emp.department || 'N/A' }}</td> -->
+              <td>{{ emp.manager ? (emp.manager.firstName + ' ' + emp.manager.lastName) : 'N/A' }}</td>
+              <td>{{ emp.location || 'N/A' }}</td>
+              <td>{{ emp.contactNumber || 'N/A' }}</td>
+              <td>{{emp.certifications ||'N/A'}}</td>
+              <!-- <td>
+            <ng-container *ngIf="getLatestSalary(emp) as salary; else noSalary">
+              ₹{{ salary }}
+            </ng-container>
+            <ng-template #noSalary><span class="na-text">N/A</span></ng-template>
+          </td> -->
+              <td class="text-center">
+                <span [ngClass]="{
+              'status-active': emp.status === 'ACTIVE',
+              'status-inactive': emp.status === 'INACTIVE'
+            }">
+                  {{ emp.status || 'N/A' }}
+                </span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- No Employees -->
+      <div *ngIf="!loading && employees.length === 0" class="no-employees">
+        No employees found.
+      </div>
+    </div>
+  </div>
+</div>

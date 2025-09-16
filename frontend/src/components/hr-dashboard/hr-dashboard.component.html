@@ -1,0 +1,93 @@
+<div class="container-fluid">
+  <app-hr-sidebar></app-hr-sidebar>
+
+  <!-- Username Header with Dropdown -->
+  <div class="d-flex justify-content-end align-items-center pe-4 pt-3 position-relative profile-dropdown">
+    <div class="dropdown">
+      <a class="d-flex align-items-center text-decoration-none dropdown-toggle" href="#" role="button">
+        <span class="fw-bold text-capitalize me-2">{{ username }}</span>
+        <i class="fas fa-user-circle fa-lg text-primary"></i>
+      </a>
+      <ul class="dropdown-menu dropdown-menu-end">
+        <li><a class="dropdown-item text-danger" href="#" (click)="logout()">Logout</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Page Heading -->
+  <div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">HR Dashboard</h1>
+    <!-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+        <i class="fas fa-download fa-sm text-white-50"></i> Generate Report
+      </a> -->
+  </div>
+
+  <!-- Attendance Management -->
+  <div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <h4 class="m-0 font-weight-bold text-primary">Attendance Management</h4>
+    </div>
+    <div class="card-body">
+      <!-- Clock In Form -->
+      <form [formGroup]="clockInForm" (ngSubmit)="clockIn()">
+        <div class="mb-3">
+          <label>Working From:</label>
+          <select class="form-select" formControlName="workFrom">
+            <option value="">Select</option>
+            <option value="OFFICE">OFFICE</option>
+            <option value="REMOTE">REMOTE</option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label>Mode:</label>
+          <select class="form-select" formControlName="mode">
+            <option value="">Select</option>
+            <option value="WEB">WEB</option>
+            <option value="MOBILE">MOBILE</option>
+            <option value="BIOMETRIC">BIOMETRIC</option>
+          </select>
+        </div>
+        <!-- <div class="mb-3">
+            <label>Location:</label>
+            <input type="text" class="form-control" formControlName="location" placeholder="Enter your city" autocomplete="off" />
+          </div> -->
+        <button type="submit" class="btn btn-success" [disabled]="clockInForm.invalid || clockedIn">Clock In</button>
+        <span *ngIf="clockedIn" class="ms-3">Clocked in for: {{ timerDisplay }}</span>
+      </form>
+
+      <hr />
+
+      <!-- Clock Out Form -->
+      <form [formGroup]="clockOutForm" (ngSubmit)="clockOutAttendance()" class="mb-3">
+        <button type="submit" class="btn btn-warning">Clock Out</button>
+      </form>
+
+      <hr />
+
+      <!-- Regularize Attendance Form -->
+      <form [formGroup]="regularizeForm" (ngSubmit)="submitRegularization()">
+        <div class="card-header py-3">
+          <h4 class="m-0 font-weight-bold text-primary">Regularize Attendance</h4>
+        </div>
+        <div class="mb-3">
+          <label>Date:</label>
+          <input type="date" class="form-control" formControlName="date" [min]="currentMonthMin" [max]="today" (input)="restrictYear($event)" />
+        </div>
+        <div class="mb-3">
+  <label>Reason:</label>
+  <input type="text" class="form-control" formControlName="reason" />
+  <div *ngIf="regularizeForm.get('reason')?.invalid && (regularizeForm.get('reason')?.dirty || regularizeForm.get('reason')?.touched)" class="text-danger">
+    <small *ngIf="regularizeForm.get('reason')?.errors?.['required']">Reason is required.</small>
+    <small *ngIf="regularizeForm.get('reason')?.errors?.['pattern']">Only letters and numbers are allowed, no spaces or special characters.</small>
+  </div>
+</div>
+        <button type="submit" class="btn btn-primary" [disabled]="regularizeForm.invalid">Request
+          Regularization</button>
+      </form>
+
+      <p-toast></p-toast>
+    </div>
+  </div>
+
+  <!-- Charts and Tables can follow here (Department, Performance, Hiring, Leave, Events, Training) -->
+</div>

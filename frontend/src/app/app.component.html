@@ -1,0 +1,10 @@
+<!-- Always display login/register without sidebar -->
+<router-outlet *ngIf="!authService.isLoggedIn()"></router-outlet>
+
+<!-- Display layout (sidebar + dashboard etc.) only after login -->
+<div class="app-container" *ngIf="authService.isLoggedIn()">
+  <!-- <app-sidebar></app-sidebar> -->
+  <div class="main-content" [class.sidebar-collapsed]="sidebarCollapsed">
+    <router-outlet></router-outlet>
+  </div>
+</div>

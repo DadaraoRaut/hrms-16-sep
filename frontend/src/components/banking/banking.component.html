@@ -1,0 +1,102 @@
+<div style="display: flex;">
+  <app-sidebar></app-sidebar>
+  <div style="flex: 1;">
+    <p-toast></p-toast>
+
+    <!-- Back Button -->
+    <div class="top-button-wrapper">
+      <button class="action-button" (click)="goBack()">← Back</button>
+    </div>
+
+    <div class="container mt-4">
+      <h2>Add Bank Details</h2>
+
+      <form [formGroup]="bankForm" (ngSubmit)="onSubmit()">
+
+        <!-- Employee -->
+        <div class="form-group">
+          <label>Employee</label>
+          <select class="form-control" formControlName="employeeId">
+            <option value="" disabled>Select Employee</option>
+            <option *ngFor="let emp of allEmployees" [value]="emp.empId">
+              {{ emp.firstName }} {{ emp.lastName }} ({{ emp.employeeCode }})
+            </option>
+          </select>
+          <div *ngIf="bankForm.get('employeeId')?.invalid && bankForm.get('employeeId')?.touched" class="text-danger">
+            Employee is required.
+          </div>
+        </div>
+
+        <!-- Account Holder Name -->
+        <div class="form-group mt-3">
+          <label>Account Holder Name</label>
+          <input type="text" class="form-control" placeholder="Enter account holder name"
+            formControlName="accountHolderName" />
+          <div *ngIf="bankForm.get('accountHolderName')?.invalid && bankForm.get('accountHolderName')?.touched"
+            class="text-danger">
+            Account holder name is required.
+          </div>
+        </div>
+
+        <!-- Bank Name -->
+        <div class="form-group mt-3">
+          <label>Bank Name</label>
+          <input type="text" class="form-control" placeholder="Enter bank name" formControlName="bankName" />
+          <div *ngIf="bankForm.get('bankName')?.invalid && bankForm.get('bankName')?.touched" class="text-danger">
+            Bank name is required.
+          </div>
+        </div>
+
+        <!-- Account Number -->
+        <div class="form-group mt-3">
+          <label>Account Number</label>
+          <input type="text" class="form-control" placeholder="Enter account number" formControlName="accountNumber" />
+          <div *ngIf="bankForm.get('accountNumber')?.invalid && bankForm.get('accountNumber')?.touched"
+            class="text-danger">
+            <div *ngIf="bankForm.get('accountNumber')?.errors?.['required']">Account number is required.</div>
+            <div *ngIf="bankForm.get('accountNumber')?.errors?.['pattern']">Account number must be numeric.</div>
+            <div *ngIf="bankForm.get('accountNumber')?.errors?.['minlength']">Account number must be at least 8 digits.
+            </div>
+          </div>
+        </div>
+
+        <!-- IFSC Code -->
+        <div class="form-group mt-3">
+          <label>IFSC Code</label>
+          <input type="text" class="form-control" placeholder="e.g. SBIN0001234" formControlName="ifscCode" />
+          <div *ngIf="bankForm.get('ifscCode')?.invalid && bankForm.get('ifscCode')?.touched" class="text-danger">
+            <div *ngIf="bankForm.get('ifscCode')?.errors?.['required']">IFSC code is required.</div>
+            <div *ngIf="bankForm.get('ifscCode')?.errors?.['pattern']">Enter a valid IFSC code.</div>
+          </div>
+        </div>
+
+        <!-- Branch -->
+        <div class="form-group mt-3">
+          <label>Branch</label>
+          <input type="text" class="form-control" placeholder="Enter branch name" formControlName="branch" />
+          <div *ngIf="bankForm.get('branch')?.invalid && bankForm.get('branch')?.touched" class="text-danger">
+            Branch name is required.
+          </div>
+        </div>
+
+        <!-- Account Type -->
+        <div class="form-group mt-3">
+          <label>Account Type</label>
+          <select class="form-control" formControlName="accountType">
+            <option value="" disabled>Select Type</option>
+            <option value="SAVINGS">Savings</option>
+            <option value="CURRENT">Current</option>
+          </select>
+          <div *ngIf="bankForm.get('accountType')?.invalid && bankForm.get('accountType')?.touched" class="text-danger">
+            Account type is required.
+          </div>
+        </div>
+
+        <!-- Submit -->
+        <div class="mt-4">
+          <button type="submit" class="btn btn-primary" [disabled]="bankForm.invalid">Save Bank Details</button>
+        </div>
+      </form>
+    </div>
+    </div>
+</div>

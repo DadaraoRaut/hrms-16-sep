@@ -1,0 +1,54 @@
+<div class="form-container">
+  <h2>Performance Review</h2>
+  <form>
+      <div class="form-sections">
+          <div class="form-section">
+              <h3>Review Details</h3>
+              <div class="form-group">
+                  <label for="id">Review ID</label>
+                  <input type="text" id="id" name="id" />
+              </div>
+
+              <div class="form-group">
+                  <label for="employeeId">Employee ID</label>
+                  <input type="text" id="employeeId" name="employeeId" />
+              </div>
+
+              <div class="form-group">
+                  <label for="reviewCycle">Review Cycle</label>
+                  <input type="text" id="reviewCycle" name="reviewCycle" placeholder="e.g., Q1 2025, H1 2024" />
+              </div>
+
+              <div class="form-group">
+                  <label for="overallScore">Overall Score</label>
+                  <input type="number" step="0.1" id="overallScore" name="overallScore" placeholder="e.g., 4.2" />
+              </div>
+          </div>
+
+          <div class="form-section">
+              <h3>Feedback & Goals</h3>
+              <div class="form-group">
+                  <label for="selfAssessment">Self Assessment</label>
+                  <textarea id="selfAssessment" name="selfAssessment" rows="3" placeholder="Employee self evaluation..."></textarea>
+              </div>
+
+              <div class="form-group">
+                  <label for="managerReview">Manager Review</label>
+                  <textarea id="managerReview" name="managerReview" rows="3" placeholder="Manager feedback..."></textarea>
+              </div>
+
+              <div class="form-group">
+                  <label for="peerReview">Peer Review</label>
+                  <textarea id="peerReview" name="peerReview" rows="3" placeholder="Peer feedback..."></textarea>
+              </div>
+
+              <div class="form-group">
+                  <label for="goals">Goals / KRAs / KPIs (JSON or List)</label>
+                  <textarea id="goals" name="goals" rows="3" placeholder='e.g., [{"kpi":"Sales Target","score":85}]'></textarea>
+              </div>
+          </div>
+      </div>
+
+      <button type="submit">Submit Review</button>
+  </form>
+</div>

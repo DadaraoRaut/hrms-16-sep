@@ -1,0 +1,26 @@
+.button-row {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 1rem;
+}
+
+.action-button {
+  width: auto;
+  padding: 0.5rem 1.2rem;
+  background-color: #0066ff;
+  color: white;
+  border: none;
+  font-size: 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.action-button:hover:not(:disabled) {
+  background-color: darkgray;
+}
+
+.register-button-wrapper {
+  display: flex;
+  justify-content: center;
+}

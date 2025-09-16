@@ -1,0 +1,59 @@
+<div class="form-container">
+  <h2>Create Survey / Feedback</h2>
+  <form>
+      <div class="form-sections">
+          <!-- Left Section - Basic Information -->
+          <div class="form-section">
+              <div class="form-section-title">Basic Information</div>
+              
+              <div class="form-group">
+                  <label for="id">ID</label>
+                  <input type="text" id="id" name="id" />
+              </div>
+
+              <div class="form-group">
+                  <label for="title">Title</label>
+                  <input type="text" id="title" name="title" placeholder="Survey or Feedback Title" />
+              </div>
+
+              <div class="form-group">
+                  <label for="type">Type</label>
+                  <select id="type" name="type">
+                      <option value="">-- Select Type --</option>
+                      <option>Survey</option>
+                      <option>Feedback</option>
+                      <option>Quiz</option>
+                  </select>
+              </div>
+
+              <div class="form-group">
+                  <label for="targetRoles">Target Roles (Select multiple)</label>
+                  <select id="targetRoles" name="targetRoles" multiple size="5">
+                      <option>ADMIN</option>
+                      <option>HR</option>
+                      <option>MANAGER</option>
+                      <option>EMPLOYEE</option>
+                      <option>FINANCE</option>
+                  </select>
+              </div>
+          </div>
+
+          <!-- Right Section - Questions & Responses -->
+          <div class="form-section">
+              <div class="form-section-title">Content & Responses</div>
+              
+              <div class="form-group">
+                  <label for="questions">Questions (JSON format)</label>
+                  <textarea id="questions" name="questions" rows="6" placeholder='e.g. [{"q":"Question 1","type":"text"}, {"q":"Question 2","type":"rating"}]'></textarea>
+              </div>
+
+              <div class="form-group">
+                  <label for="responses">Responses (JSON format)</label>
+                  <textarea id="responses" name="responses" rows="6" placeholder='Responses will be recorded here'></textarea>
+              </div>
+          </div>
+      </div>
+
+      <button type="submit">Save Survey/Feedback</button>
+  </form>
+</div>

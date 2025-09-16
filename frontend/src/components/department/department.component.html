@@ -1,0 +1,136 @@
+<p-toast></p-toast>
+ 
+<!-- Back Button -->
+<div class="top-button-wrapper">
+  <button class="action-button" (click)="goBack()"> ← Back</button>
+</div>
+ 
+<div class="container mt-4">
+  <!-- Heading -->
+  <h2 class="mb-3"><u>{{ isEditMode ? 'Edit' : 'Department' }}</u></h2>
+ 
+  <form *ngIf="canModify()" [formGroup]="departmentForm" (ngSubmit)="onSubmit()">
+    <!-- Bold + Underlined Title -->
+    <h3><b>Create Department</b></h3>
+   
+    <!-- Department Code -->
+    <div class="mb-2">
+      <label>Department Code</label>
+      <input formControlName="departmentCode" class="form-control" placeholder="Enter department code"
+        (keypress)="restrictDepartmentCode($event)" />
+      <small class="text-danger" *ngIf="submitted && departmentForm.get('departmentCode')?.hasError('required')">
+        Department Code is required.
+      </small>
+      <small class="text-danger" *ngIf="submitted && departmentForm.get('departmentCode')?.hasError('maxlength')">
+        Maximum 8 characters allowed.
+      </small>
+    </div>
+ 
+    <!-- Name -->
+    <div class="mb-2">
+      <label>Name</label>
+      <input formControlName="name" class="form-control" placeholder="Enter department name"
+        (keypress)="restrictName($event)" />
+      <small class="text-danger" *ngIf="submitted && departmentForm.get('name')?.hasError('required')">
+        Name is required.
+      </small>
+      <small class="text-danger" *ngIf="submitted && departmentForm.get('name')?.hasError('maxlength')">
+        Maximum 40 characters allowed.
+      </small>
+    </div>
+ 
+    <!-- Description -->
+    <div class="mb-2">
+      <label>Description</label>
+      <input formControlName="description" class="form-control" placeholder="Enter department description"
+        (keypress)="restrictDescription($event)" />
+      <small class="text-danger" *ngIf="submitted && departmentForm.get('description')?.hasError('maxlength')">
+        Maximum 100 characters allowed.
+      </small>
+    </div>
+ 
+    <!-- Location -->
+    <div class="mb-2">
+      <label>Location</label>
+      <input formControlName="location" class="form-control" placeholder="Enter department location"
+        (keypress)="restrictLocation($event)" />
+      <small class="text-danger" *ngIf="submitted && departmentForm.get('location')?.hasError('maxlength')">
+        Maximum 10 characters allowed.
+      </small>
+    </div>
+ 
+    <!-- Department Head -->
+    <div class="mb-2">
+      <label>Department Head (Manager)</label>
+      <select class="form-control" formControlName="departmentHead">
+        <option [ngValue]="null">-- No Department Head --</option>
+        <option *ngFor="let mgr of managers" [ngValue]="mgr">
+          {{ mgr.firstName }} {{ mgr.lastName }} ({{ mgr.employeeCode }})
+        </option>
+      </select>
+    </div>
+ 
+    <!-- Buttons -->
+    <button class="btn btn-primary" type="submit">
+      {{ isEditMode ? 'Update' : 'Create' }}
+    </button>
+    <button class="btn btn-secondary ms-2" type="button" (click)="resetForm()">Clear</button>
+  </form>
+ 
+  <hr />
+ 
+  <!-- All Departments Table -->
+  <h3>All Departments</h3>
+  <table class="table table-bordered mt-3">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Code</th>
+        <th>Name</th>
+        <th>Location</th>
+        <th>Head</th>
+        <th *ngIf="canModify()">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let dept of departments">
+        <td>{{ dept.departmentId }}</td>
+        <td>{{ dept.departmentCode }}</td>
+        <td>{{ dept.name }}</td>
+        <td>{{ dept.location }}</td>
+        <td>{{ getManagerNameById(dept.departmentHead?.empId) }}</td>
+        <td *ngIf="canModify()">
+          <button class="btn btn-sm btn-info" (click)="editDepartment(dept)">Edit</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+ 
+  <!-- Admin Only: All Users -->
+  <div *ngIf="authService.isAdmin()">
+    <hr />
+    <h3>All Users</h3>
+    <table class="table table-bordered mt-3">
+      <thead>
+        <tr>
+          <th>User ID</th>
+          <th>Username</th>
+          <th>Email</th>
+          <th>Role</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of users">
+          <td>{{ user.userID }}</td>
+          <td>{{ user.username }}</td>
+          <td>{{ user.email }}</td>
+          <td>{{ user.role }}</td>
+          <td>{{ user.status }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+ 
+ 

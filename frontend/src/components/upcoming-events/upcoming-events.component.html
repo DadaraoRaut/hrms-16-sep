@@ -1,0 +1,26 @@
+<div class="card shadow mb-4">
+  <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+    <h6 class="m-0 font-weight-bold text-primary">Upcoming Events</h6>
+    <div class="dropdown no-arrow">
+      <a class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+        <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+      </a>
+      <ul class="dropdown-menu dropdown-menu-end shadow">
+        <li><a class="dropdown-item" href="#">Add Event</a></li>
+        <li><a class="dropdown-item" href="#">View Calendar</a></li>
+      </ul>
+    </div>
+  </div>
+  
+  <div class="card-body">
+    <div class="list-group">
+      <a href="#" class="list-group-item list-group-item-action" *ngFor="let event of events">
+        <div class="d-flex w-100 justify-content-between">
+          <h6 class="mb-1">{{event.title}}</h6>
+          <small [class]="event.dateClass">{{event.date}}</small>
+        </div>
+        <p class="mb-1">{{event.description}}</p>
+      </a>
+    </div>
+  </div>
+</div>

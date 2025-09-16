@@ -1,0 +1,47 @@
+.metric-card {
+  padding: 20px;
+  border-radius: 12px;
+  color: white;
+  position: relative;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.metric-title {
+  font-size: 14px;
+  margin-bottom: 6px;
+}
+
+.metric-value {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.metric-icon {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  font-size: 30px;
+  opacity: 0.2;
+}
+
+.primary-metric { background-color: #4e73df; }
+.danger-metric { background-color: #e74a3b; }
+.success-metric { background-color: #1cc88a; }
+.warning-metric { background-color: #f6c23e; }
+
+/* Dropdown hover effect */
+.profile-dropdown .dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0;
+}
+
+.profile-dropdown:hover .dropdown-menu {
+  display: block;
+}
+
+.dropdown-menu {
+  min-width: 150px;
+  font-size: 0.9rem;
+}

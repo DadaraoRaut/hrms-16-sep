@@ -1,0 +1,228 @@
+/* Modern HR Dashboard Styles */
+
+:host {
+  display: block;
+  background-color: #f8f9fc;
+  min-height: 100vh;
+}
+
+.container-fluid {
+  padding: 2rem;
+}
+
+/* Card Styles */
+.card {
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  overflow: hidden;
+  background: white;
+  margin-bottom: 1.5rem;
+}
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
+}
+.card .card-header {
+  background: transparent;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  padding: 1.25rem 1.5rem;
+  position: relative;
+}
+.card .card-header::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 40px;
+  height: 3px;
+  background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+  border-radius: 3px;
+}
+.card .card-header h6 {
+  font-weight: 600;
+  color: #2d3748;
+  margin: 0;
+  font-size: 1.1rem;
+}
+.card .card-body {
+  padding: 1.5rem;
+}
+
+/* Metric Cards */
+.metric-card {
+  border-radius: 12px;
+  padding: 1.5rem;
+  color: white;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  height: 100%;
+}
+.metric-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0) 100%);
+}
+.metric-card .metric-icon {
+  position: absolute;
+  right: 1.5rem;
+  top: 1.5rem;
+  font-size: 2.5rem;
+  opacity: 0.2;
+  transition: all 0.3s ease;
+}
+.metric-card:hover .metric-icon {
+  transform: scale(1.2);
+  opacity: 0.3;
+}
+.metric-card .metric-title {
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  opacity: 0.9;
+}
+.metric-card .metric-value {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+/* Color Variants */
+.primary-metric {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+.success-metric {
+  background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+}
+.info-metric {
+  background: linear-gradient(135deg, #00c6fb 0%, #005bea 100%);
+}
+.warning-metric {
+  background: linear-gradient(135deg, #f46b45 0%, #eea849 100%);
+}
+
+/* Charts */
+.chart-container {
+  position: relative;
+  height: 300px;
+  width: 100%;
+  padding: 1rem;
+}
+.chart-container canvas {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* Progress Bars */
+.progress {
+  height: 10px;
+  border-radius: 5px;
+  background-color: #edf2f7;
+}
+.progress .progress-bar {
+  border-radius: 5px;
+}
+
+/* Tables */
+.table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+.table thead th {
+  background-color: #f7fafc;
+  color: #4a5568;
+  font-weight: 600;
+  padding: 1rem;
+  border-bottom: 2px solid #e2e8f0;
+}
+.table tbody td {
+  padding: 1rem;
+  border-bottom: 1px solid #e2e8f0;
+  vertical-align: middle;
+}
+.table tr:last-child td {
+  border-bottom: none;
+}
+.table tr:hover td {
+  background-color: #f8fafc;
+}
+
+/* Event Cards */
+.event-card {
+  border-left: 4px solid;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  margin-bottom: 1rem;
+}
+.event-card:hover {
+  transform: translateX(5px);
+}
+.event-card .event-date {
+  font-size: 0.85rem;
+  color: #718096;
+}
+.event-card .event-title {
+  font-weight: 600;
+  color: #2d3748;
+  margin: 0.25rem 0;
+}
+.meeting-event {
+  border-left-color: #667eea;
+  background: rgba(102, 126, 234, 0.05);
+}
+.announcement-event {
+  border-left-color: #f6ad55;
+  background: rgba(246, 173, 85, 0.05);
+}
+.reminder-event {
+  border-left-color: #f56565;
+  background: rgba(245, 101, 101, 0.05);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animated-card {
+  animation: fadeIn 0.6s ease forwards;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .container-fluid {
+    padding: 1rem;
+  }
+  .metric-card {
+    padding: 1rem;
+  }
+  .metric-card .metric-value {
+    font-size: 1.5rem;
+  }
+  .metric-card .metric-icon {
+    font-size: 2rem;
+  }
+}
+
+/* ===== Profile Dropdown Styles ===== */
+.profile-dropdown .dropdown:hover .dropdown-menu {
+  display: block;
+  margin-top: 0;
+}
+.dropdown-menu {
+  min-width: 150px;
+  font-size: 0.9rem;
+}
+.dropdown-menu .dropdown-item.text-danger:hover {
+  background-color: #fee2e2;
+  color: #b91c1c;
+}

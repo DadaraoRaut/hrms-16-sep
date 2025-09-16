@@ -1,0 +1,110 @@
+.card {
+  border-radius: 16px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+}
+
+/* Header styling */
+h4 {
+  font-weight: 700;
+  color: #1f4e79;
+}
+
+/* Label styling */
+label {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #444;
+}
+
+/* Input styling */
+input.form-control {
+  border-radius: 8px;
+  border: 1px solid #ced4da;
+  padding: 0.5rem 0.75rem;
+}
+
+input.form-control:focus {
+  border-color: #1f4e79;
+  box-shadow: 0 0 0 0.2rem rgba(31, 78, 121, 0.25);
+}
+
+/* Bootstrap-like buttons */
+button.btn {
+  border-radius: 8px;
+  padding: 0.5rem 1.25rem;
+  font-weight: 600;
+}
+
+button.btn-success {
+  background-color: #28a745;
+  border: none;
+}
+
+button.btn-danger {
+  background-color: #dc3545;
+  border: none;
+}
+
+button.btn-info {
+  background-color: #17a2b8;
+  border: none;
+}
+
+/* Hover effect */
+button:hover {
+  opacity: 0.9;
+}
+
+/* Responsive fixes */
+@media (max-width: 768px) {
+  .row.g-3 > div {
+    margin-bottom: 1rem;
+  }
+
+  .d-flex.gap-3 {
+    flex-direction: column;
+  }
+}
+
+/* ===== NEW STYLES FOR CONSISTENCY ===== */
+
+/* Top right × button */
+.top-button-wrapper {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 1rem;
+}
+
+/* Shared button style */
+.action-button {
+  padding: 8px 16px;
+  background-color: #0066ff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.action-button:hover {
+  background-color: #163c5c;
+}
+
+/* Optional gray cancel button */
+.action-button.cancel {
+  background-color: #6c757d;
+}
+
+.action-button.cancel:hover {
+  background-color: #5a6268;
+}
+
+/* Center button container if needed */
+.bottom-button-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+}

@@ -1,0 +1,151 @@
+<p-toast></p-toast>
+
+<!-- Back Button -->
+<div class="top-button-wrapper">
+  <button class="action-button" (click)="goBack()">← Back</button>
+</div>
+
+<div class="card m-4 p-4">
+  <h2 class="mb-3">{{ isEdit ? 'Update Benefit' : 'Add Benefit' }}</h2>
+
+  <form [formGroup]="benefitForm" (ngSubmit)="onSubmit()">
+    <!-- Name -->
+    <div class="form-group mb-3">
+      <label for="name">Name</label>
+      <input
+        id="name"
+        formControlName="name"
+        class="form-control"
+        placeholder="Enter benefit name"
+        maxlength="20"
+        (keypress)="allowOnlyLetters($event)"
+      />
+      <div
+        *ngIf="benefitForm.get('name')?.hasError('required') && benefitForm.get('name')?.touched"
+        class="text-danger"
+      >
+        Name is required.
+      </div>
+      <div
+        *ngIf="benefitForm.get('name')?.hasError('pattern') && benefitForm.get('name')?.touched"
+        class="text-danger"
+      >
+        Only alphabets and spaces are allowed.
+      </div>
+      <div
+        *ngIf="benefitForm.get('name')?.hasError('maxlength') && benefitForm.get('name')?.touched"
+        class="text-danger"
+      >
+        Name cannot exceed 20 characters.
+      </div>
+    </div>
+
+    <!-- Description -->
+    <div class="form-group mb-3">
+      <label for="description">Description</label>
+      <textarea
+        id="description"
+        formControlName="description"
+        class="form-control"
+        placeholder="Enter benefit description"
+        maxlength="100"
+      ></textarea>
+      <div
+        *ngIf="benefitForm.get('description')?.hasError('required') && benefitForm.get('description')?.touched"
+        class="text-danger"
+      >
+        Description is required.
+      </div>
+      <div
+        *ngIf="benefitForm.get('description')?.hasError('maxlength') && benefitForm.get('description')?.touched"
+        class="text-danger"
+      >
+        Description cannot exceed 100 characters.
+      </div>
+    </div>
+
+    <!-- Type -->
+    <div class="form-group mb-3">
+      <label for="type">Type</label>
+      <select
+        id="type"
+        formControlName="type"
+        class="form-control"
+      >
+        <option value="" disabled>Select benefit type</option>
+        <option *ngFor="let type of benefitTypes" [value]="type">{{ type }}</option>
+      </select>
+      <div
+        *ngIf="benefitForm.get('type')?.invalid && benefitForm.get('type')?.touched"
+        class="text-danger"
+      >
+        Type is required.
+      </div>
+    </div>
+
+    <!-- Taxable -->
+    <div class="form-check mb-3">
+      <input
+        id="isTaxable"
+        type="checkbox"
+        formControlName="isTaxable"
+        class="form-check-input"
+      />
+      <label for="isTaxable" class="form-check-label">Taxable?</label>
+    </div>
+
+    <!-- Buttons -->
+    <button
+      class="btn btn-primary"
+      type="submit"
+      [disabled]="benefitForm.invalid"
+    >
+      {{ isEdit ? 'Update' : 'Create' }}
+    </button>
+    <button
+      class="btn btn-secondary ms-2"
+      type="button"
+      (click)="resetForm()"
+    >
+      Cancel
+    </button>
+  </form>
+</div>
+
+<!-- Benefits Table -->
+<div class="card m-4 p-4">
+  <h3 class="mb-3">All Benefits</h3>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Type</th>
+        <th>Taxable</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let b of benefits">
+        <td>{{ b.name }}</td>
+        <td>{{ b.description }}</td>
+        <td>{{ b.type }}</td>
+        <td>{{ b.isTaxable ? 'Yes' : 'No' }}</td>
+        <td>
+          <button
+            class="btn btn-sm btn-warning me-2"
+            (click)="editBenefit(b)"
+          >
+            Edit
+          </button>
+          <button
+            class="btn btn-sm btn-danger"
+            (click)="deleteBenefit(b.benefitId)"
+          >
+            Delete
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

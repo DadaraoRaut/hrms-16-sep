@@ -1,0 +1,26 @@
+<div class="attendance-container">
+  <h2>Attendance Report</h2>
+
+  <div class="top-button-wrapper">
+      <button class="action-button" (click)="goBack()">← Back</button>
+    </div>
+
+  <div class="date-picker">
+    <label>
+      Employee ID:
+      <input type="number" [(ngModel)]="empId" />
+    </label>
+    <label>From: <input type="date" [(ngModel)]="fromDate" /></label>
+    <label>To: <input type="date" [(ngModel)]="toDate" /></label>
+    <!-- <button (click)="fetchAttendance()">Fetch Attendance</button> -->
+  </div>
+
+  <div *ngIf="loading" class="loading">Loading...</div>
+  <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
+
+  <div class="download-section">
+    <button (click)="downloadCSV()" [disabled]="!fromDate || !toDate">
+      ⬇ Download CSV
+    </button>
+  </div>
+</div>
